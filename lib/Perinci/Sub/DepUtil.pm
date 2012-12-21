@@ -46,7 +46,7 @@ sub declare_function_dep {
 
 =head1 FUNCTIONS
 
-=head2 declare_property
+=head2 declare_function_dep
 
 
 =head1 SEE ALSO
