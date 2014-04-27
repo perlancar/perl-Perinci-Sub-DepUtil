@@ -21,15 +21,15 @@ sub declare_function_dep {
     $name =~ /\A\w+\z/
         or die "Invalid syntax on dep's name, please use alphanums only";
 
-    require Rinci::Schema;
-    # XXX merge first or use Perinci::Object, less fragile
-    my $dd = $Rinci::Schema::function->[1]{"[merge+]keys"}{deps}
+    require Sah::Schema::Rinci;
+
+    my $sch = $Sah::Schema::Rinci::SCHEMAS{rinci_function}
         or die "BUG: Schema structure changed (1)";
-    $dd->[1]{keys}
+    my $props = $sch->[1]{_prop}
         or die "BUG: Schema structure changed (2)";
-    $dd->[1]{keys}{$name}
-        and die "Dependency type '$name' is already declared";
-    $dd->[1]{keys}{$name} = $args{schema};
+    $props->{deps}{_prop}{$name}
+        and die "Dep clause '$name' already defined in schema";
+    $props->{deps}{_prop}{$name} = {}; # XXX inject $schema somewhere?
 
     if ($check) {
         require Perinci::Sub::DepChecker;
