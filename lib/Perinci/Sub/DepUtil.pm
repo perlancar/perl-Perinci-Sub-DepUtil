@@ -1,5 +1,8 @@
 package Perinci::Sub::DepUtil;
 
+# DATE
+# VERSION
+
 use 5.010001;
 use strict;
 use warnings;
@@ -10,8 +13,6 @@ our @EXPORT_OK = qw(
                        declare_function_dep
                );
 
-# VERSION
-
 sub declare_function_dep {
     my %args    = @_;
     my $name    = $args{name}   or die "Please specify dep's name";
@@ -21,12 +22,11 @@ sub declare_function_dep {
     $name =~ /\A\w+\z/
         or die "Invalid syntax on dep's name, please use alphanums only";
 
-    require Sah::Schema::Rinci;
+    require Sah::Schema::rinci::function_meta;
 
-    my $sch = $Sah::Schema::Rinci::SCHEMAS{rinci_function}
-        or die "BUG: Schema structure changed (1)";
+    my $sch = $Sah::Schema::rinci::function_meta::schema;
     my $props = $sch->[1]{_prop}
-        or die "BUG: Schema structure changed (2)";
+        or die "BUG: Schema structure changed (1a)";
     $props->{deps}{_prop}{$name}
         and die "Dep clause '$name' already defined in schema";
     $props->{deps}{_prop}{$name} = {}; # XXX inject $schema somewhere?
