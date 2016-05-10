@@ -1,5 +1,11 @@
 Revision history for Perinci-Sub-DepUtil
 
+0.04    2016-05-10 (PERLANCAR)
+
+	- Update to Sah::Schema::rinci::function_meta which replaces
+	  Sah::Schema::Rinci.
+
+
 0.03    2015-09-03 (PERLANCAR)
 
 	- No functional changes.
